@@ -47,10 +47,10 @@ function preload(){
    pB = loadImage("./assets/PLAY.png");
    pBImg = loadImage("./assets/PLAYimg.png");
 
-   bgImg = loadImage("./assets/farm.png");
+   bgImg = loadImage("./assets/farm.jpg");
 
    iImg = loadImage("./assets/intro_image.png");
-   backImg = loadImage("./assets/play_ground.png");
+   //backImg = loadImage("./assets/play_ground.png");
 
    cornImg = loadImage("./assets/corn.png");
    carrotImg = loadImage("./assets/carrot.png");
@@ -76,7 +76,7 @@ function setup() {
     cornG = new Group();
     carrotG = new Group();
     brinjalG = new Group();
-    lettuce = new Group();
+    lettuceG = new Group();
     rTG = new Group();
     rBG = new  Group();
     rLG = new Group();
@@ -90,9 +90,7 @@ function draw() {
 //making an introductory pane
 if(gameState== "PRE"){
 
-muzics = playSound(muzic,true);
-
-bg = BG;
+//muzic.play();
 
 BG= createSprite(windowWidth/2,windowHeight/2);
 BG. addImage(iBGImg);
@@ -143,6 +141,7 @@ if(mousePressedOver(man1)){
     p4 = man4Img;
 }
 
+
 if(mousePressedOver(girl) || mousePressedOver(man1)){
     subState = "tractorS";
     girl.destroy();
@@ -170,6 +169,7 @@ rTractor = createSprite(windowWidth*3/4, windowHeight*3/4);
 rTractor.addImage(rCImg);
 rTractor.scale = 2;
 
+//making the tractor according to the chosen color
 if(mousePressedOver(gTractor)){
     topViewTractor = tvg
 }
@@ -194,10 +194,12 @@ rTractor.destroy();
     gTractor.destroy();
 }}
 
+//instructions pane
 if(subState == "instruct"){
 instruct = createSprite(windowWidth/2, windowHeight * 3/4);
 instruct.addImage(iImg);
 
+//starting the game
 if(keyDown(RIGHT_ARROW)){
     subState= "end";
     gameState= "PLAY";
@@ -208,18 +210,17 @@ if(keyDown(RIGHT_ARROW)){
 
 if(gameState == "PLAY"){
 
-    musics = playSound(music,true);
-
-bg= playBG;
-BG.addImage(backImg);
-BG.scale = 2.3;
-playBG = createSprite(windowWidth/2, windowHeight/2);
+    //music.play();
+//making the background
+playBG = createSprite(windowWidth/2, -500);
+playBG.scale = 1;
+//playBG.addImage(backImg);
 playBG.addImage(bgImg);
-playBG.scale = 5;
 playBG.velocityY = 5;
 traCtor = createSprite(windowWidth/2, windowHeight*3/4);
 traCtor.addImage(topViewTractor);
 
+//making the buttons
 left = createSprite(windowWidth-200, windowHeight*3/4);
 left.addImage(lImg);
 left.scale = 0.04;
@@ -252,7 +253,7 @@ if(mousePressedOver(speed) || keyIsDown(UP_ARROW)){
 }
 
 if(playBG.y > windowHeight){
-    playBG.y = 200;
+    playBG.y = -200;
   }
 
 leftb = createSprite(windowWidth/4 + 20, windowHeight/2, 10, windowHeight);
@@ -285,7 +286,11 @@ if(cornG.isTouching(traCtor)){
     rLG.destroyEach();
     produce -= 20;
 }
+
+
+
 }
+
 
 drawSprites();
 
@@ -333,7 +338,8 @@ if(gameState == "PLAY"){
 
 textSize(20);
   fill(255);
-  text("Harvest Points: "+ produce,width-150,30);}
+  textFont("Lucida Console");
+  text("Harvest Points: "+ produce,width-250,30);}
 
 }
 
